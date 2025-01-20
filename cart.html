@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keranjang Belanja</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Keranjang Belanja</h1>
+        
+        {% if keranjang %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nama Produk</th>
+                        <th>Harga</th>
+                        <th>Jumlah</th>
+                        <th>Satuan</th>
+                        <th>Total Harga</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in keranjang %}
+                        <tr>
+                            <td>{{ item['nama'] }}</td>
+                            <td>Rp. {{ item['harga'] }}</td>
+                            <td>{{ item['jumlah'] }}</td>
+                            <td>{{ item['satuan'] }}</td>
+                            <td>Rp. {{ item['harga'] * item['jumlah'] }}</td>  <!-- Total harga per produk -->
+                            <td>
+                                <form action="/remove_from_cart/{{ item['id'] }}" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h3>Total Belanjaan: Rp. {{ total }}</h3>
+            <div class="text-center no-print">
+                <button onclick="window.print();" class="btn btn-primary">Cetak Struk</button>
+            </div>
+        {% else %}
+            <p>Keranjang belanja Anda kosong.</p>
+        {% endif %}
+        
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Kembali ke Daftar Produk</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Produk</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Edit Produk</h1>
+        <form action="" method="post">
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" name="name" class="form-control" value="{{ product['nama'] }}" required>
+                </div>
+                <div class="col">
+                    <input type="number" name="harga_pcs" class="form-control" value="{{ product['harga_pcs'] }}" required>
+                </div>
+                <div class="col">
+                    <input type="number" name="harga_pack" class="form-control" value="{{ product['harga_pack'] }}" required>
+                </div>
+                <div class="col">
+                    <input type="number" name="stok" class="form-control" value="{{ product['stok'] }}" required>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-success">Simpan Perubahan</button>
+                </div>
+            </div>
+        </form>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Kembali ke Daftar Produk</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

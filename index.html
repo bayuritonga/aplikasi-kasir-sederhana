@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Kasir</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Aplikasi Kasir</h1>
+        
+        <!-- Notifikasi -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        
+        <form action="/add" method="post" class="mb-4">
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" name="name" class="form-control" placeholder="Nama Produk" required>
+                </div>
+                <div class="col">
+                    <input type="number" name="harga_pcs" class="form-control" placeholder="Harga per Pcs" required>
+                </div>
+                <div class="col">
+                    <input type="number" name="harga_pack" class="form-control" placeholder="Harga per Pack" required>
+                </div>
+                <div class="col">
+                    <input type="number" name="stok" class="form-control" placeholder="Stok" required>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Tambah Produk</button>
+                </div>
+            </div>
+        </form>
+        
+        <h2>Daftar Produk</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nama Produk</th>
+                    <th>Harga per Pcs</th>
+                    <th>Harga per Pack</th>
+                    <th>Stok</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>{{ product['nama'] }}</td>
+                        <td>Rp. {{ product['harga_pcs'] }}</td>
+                        <td>Rp. {{ product['harga_pack'] }}</td>
+                        <td>{{ product['stok'] }}</td>
+                        <td>
+                            <a href="{{ url_for('edit_product', id=product['id']) }}" class="btn btn-warning">Edit</a>
+                            <form action="/add_to_cart" method="post" class="d-inline">
+                                <input type="hidden" name="product_id" value="{{ product['id'] }}">
+                                <input type="number" name="quantity" class="form-control" placeholder="Jumlah" required style="width: 100px; display: inline;">
+                                <select name="unit" class="form-control" required style="width: 100px; display: inline;">
+                                    <option value="pcs">Pcs</option>
+                                    <option value="pack">Pack</option>
+                                </select>
+                                <button type="submit" class="btn btn-success">Tambah ke Keranjang</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Keranjang Belanja</h2>
+        <a href="{{ url_for('cart') }}" class="btn btn-info">Lihat Keranjang</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
