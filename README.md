@@ -1,2 +1,6 @@
 # aplikasi-kasir-sederhana
-silakan dikembangkan lebih lanjut
+install Flask dan SQLite
+
+pip install Flask
+
+Run and Debug via VSCode atau sejenisnya
